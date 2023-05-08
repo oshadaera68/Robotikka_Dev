@@ -1,5 +1,6 @@
 package com.devstack.pos.controller;
 
+import com.devstack.pos.util.PasswordManager;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -27,9 +28,10 @@ public class SignUpFormController {
             String sql = "INSERT INTO user VALUES(?,?)";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, txtEmail.getText());
-            pstm.setString(2, txtPassword.getText());
+            pstm.setString(2, PasswordManager.encryptPassword(txtPassword.getText()));
             if (pstm.executeUpdate()>0) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Saved").show();
+                clearFields();
             }else {
                 new Alert(Alert.AlertType.ERROR,"Not Saved").show();
             }
@@ -38,6 +40,11 @@ public class SignUpFormController {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
+    }
+
+    private void clearFields() {
+        txtEmail.clear();
+        txtPassword.clear();
     }
 
     public void btnAlreadyOnAction(ActionEvent actionEvent) throws IOException {
