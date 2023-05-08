@@ -5,10 +5,15 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SignUpFormController {
     public AnchorPane context;
@@ -16,6 +21,23 @@ public class SignUpFormController {
     public JFXPasswordField txtPassword;
 
     public void btnSignUpOnAction(ActionEvent actionEvent) {
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/robotikka", "root", "1234");
+            String sql = "INSERT INTO user VALUES(?,?)";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, txtEmail.getText());
+            pstm.setString(2, txtPassword.getText());
+            if (pstm.executeUpdate()>0) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Saved").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Not Saved").show();
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+
     }
 
     public void btnAlreadyOnAction(ActionEvent actionEvent) throws IOException {
