@@ -29,7 +29,7 @@ public class LogInFormController {
 
             if (rst.next()) {
                 if (PasswordManager.checkPassword(txtPassword.getText(), rst.getString(2))) {
-                    System.out.println("Completed");
+                    setUi("DashboardForm");
                 } else {
                     new Alert(Alert.AlertType.ERROR, "User email or password not found.").show();
                 }
@@ -37,7 +37,7 @@ public class LogInFormController {
             } else {
                 new Alert(Alert.AlertType.ERROR, "User email is not found.").show();
             }
-        }catch (SQLException | ClassNotFoundException e){
+        }catch (SQLException | ClassNotFoundException | IOException e){
             e.printStackTrace();
         }
 
