@@ -17,4 +17,7 @@ public class DashboardFormController {
 
     public void btnOrderDetailsOnAction(ActionEvent actionEvent) {
     }
+
+    public void btnIncomeReportOnAction(ActionEvent actionEvent) {
+    }
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="context" prefHeight="557.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.pos.controller.CustomerFormController">
+   <children>
+      <Label layoutX="21.0" layoutY="14.0" text="Customer Management" textFill="#901e1e">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="21.0" layoutY="44.0" prefHeight="3.0" prefWidth="726.0" />
+      <JFXButton buttonType="RAISED" layoutX="295.0" layoutY="8.0" onAction="#btnBackToHomeOnAction" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: #7f8c8d;" text="Back to Home" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="423.0" layoutY="8.0" onAction="#btnManageLoyaltyCardsOnAction" prefHeight="31.0" prefWidth="171.0" style="-fx-background-color: #16a085;" text="Manage Loyalty Cards" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="606.0" layoutY="8.0" onAction="#btnNewCustomerOnAction" prefHeight="31.0" prefWidth="127.0" style="-fx-background-color: #2980b9;" text="+new customer" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXTextField fx:id="txtEmail" labelFloat="true" layoutX="21.0" layoutY="64.0" promptText="email">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtName" labelFloat="true" layoutX="261.0" layoutY="64.0" promptText="name">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtContact" labelFloat="true" layoutX="504.0" layoutY="64.0" promptText="contact">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtSalary" labelFloat="true" layoutX="21.0" layoutY="127.0" promptText="salary">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton buttonType="RAISED" layoutX="524.0" layoutY="127.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #2980b9;" text="Save Customer" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="24.0" layoutY="186.0" prefHeight="38.0" prefWidth="726.0" promptText="search here">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXTextField>
+      <TableView fx:id="tblCustomer" layoutX="24.0" layoutY="245.0" prefHeight="253.0" prefWidth="718.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="75.0" text="#" />
+          <TableColumn fx:id="colEmail" prefWidth="114.0" text="email" />
+            <TableColumn fx:id="colName" prefWidth="116.0" text="name" />
+            <TableColumn fx:id="colContact" prefWidth="118.0" text="contact" />
+            <TableColumn fx:id="colSalary" prefWidth="129.0" text="salary" />
+            <TableColumn fx:id="colOperate" prefWidth="173.0" text="Operate" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

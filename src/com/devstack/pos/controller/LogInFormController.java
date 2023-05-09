@@ -1,5 +1,7 @@
 package com.devstack.pos.controller;
 
+import com.devstack.pos.dao.DatabaseAccessCode;
+import com.devstack.pos.dto.UserDto;
 import com.devstack.pos.util.PasswordManager;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -20,23 +22,17 @@ public class LogInFormController {
 
     public void btnSignInOnAction(ActionEvent actionEvent) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/robotikka", "root", "1234");
-            String sql = "SELECT * FROM user WHERE email=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, txtEmail.getText());
-            ResultSet rst = pstm.executeQuery();
-
-            if (rst.next()) {
-                if (PasswordManager.checkPassword(txtPassword.getText(), rst.getString(2))) {
+            UserDto ud= DatabaseAccessCode.findUser(txtEmail.getText());
+            if (ud!=null) {
+                if (PasswordManager.checkPassword(txtPassword.getText(), ud.getPassword())) {
                     setUi("DashboardForm");
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "User email or password not found.").show();
+                    new Alert(Alert.AlertType.WARNING, "check your password and try again!").show();
                 }
-
             } else {
-                new Alert(Alert.AlertType.ERROR, "User email is not found.").show();
+                new Alert(Alert.AlertType.WARNING, "User email not found!").show();
             }
+
         }catch (SQLException | ClassNotFoundException | IOException e){
             e.printStackTrace();
         }
