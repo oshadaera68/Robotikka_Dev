@@ -1,15 +1,20 @@
-package com.devstack.pos.dto;
+package com.devstack.pos.entity;
+/*
+* finalize (Crud)
+* regex
+* jasper report
+* damp file-> Backup
+* barcode->
+* */
 
-public class UserDto {
+public class User implements SuperEntity{
     private String email;
     private String password;
 
-    public UserDto() {
+    public User() {
     }
 
-    public UserDto(String email, String password) {
-
-
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -28,5 +33,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

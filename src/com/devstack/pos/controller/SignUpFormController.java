@@ -1,6 +1,10 @@
 package com.devstack.pos.controller;
 
-import com.devstack.pos.dao.DatabaseAccessCode;
+import com.devstack.pos.bo.BoFactory;
+import com.devstack.pos.bo.custom.UserBo;
+import com.devstack.pos.bo.custom.impl.UserBoImpl;
+import com.devstack.pos.dto.UserDto;
+import com.devstack.pos.enums.BoType;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -13,38 +17,43 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SignUpFormController {
+public class SignupFormController {
     public AnchorPane context;
     public JFXTextField txtEmail;
-    public JFXPasswordField txtPassword;
+    public JFXPasswordField textPassword;
 
-    public void btnSignUpOnAction(ActionEvent actionEvent) {
+    UserBo bo= BoFactory.getInstance().getBo(BoType.USER);
+
+    public void btnAlreadyHaveAnAccountOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("LoginForm");
+    }
+
+    public void btnRegisterNowOnAction(ActionEvent actionEvent) {
         try {
-            if (DatabaseAccessCode.createUser(txtEmail.getText(), txtPassword.getText())) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Saved").show();
+            if (bo.saveUser(new UserDto(txtEmail.getText(), textPassword.getText()))) {
+                new Alert(Alert.AlertType.CONFIRMATION, "User Saved!").show();
                 clearFields();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Not Saved").show();
+                new Alert(Alert.AlertType.WARNING, "Try Again!").show();
             }
+
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
 
     private void clearFields() {
         txtEmail.clear();
-        txtPassword.clear();
-    }
-
-    public void btnAlreadyOnAction(ActionEvent actionEvent) throws IOException {
-        setUi("LogInForm");
+        textPassword.clear();
     }
 
     private void setUi(String url) throws IOException {
         Stage stage = (Stage) context.getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/" + url + ".fxml"))));
-        stage.show();
+        stage.setScene(
+                new Scene(FXMLLoader.load(getClass().getResource("../view/" + url + ".fxml")))
+        );
         stage.centerOnScreen();
     }
 }

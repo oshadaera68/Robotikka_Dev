@@ -1,7 +1,10 @@
 package com.devstack.pos.controller;
 
-import com.devstack.pos.dao.DatabaseAccessCode;
+import com.devstack.pos.bo.BoFactory;
+import com.devstack.pos.bo.custom.CustomerBo;
+import com.devstack.pos.bo.custom.impl.CustomerBoImpl;
 import com.devstack.pos.dto.CustomerDto;
+import com.devstack.pos.enums.BoType;
 import com.devstack.pos.view.tm.CustomerTm;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -24,31 +27,21 @@ public class CustomerFormController {
     public AnchorPane context;
     public JFXTextField txtEmail;
     public JFXTextField txtName;
-    public JFXButton btnSaveUpdate;
     public JFXTextField txtContact;
     public JFXTextField txtSalary;
-    public TableView<CustomerTm> tblCustomer;
+    public JFXButton btnSaveUpdate;
+    public TextField txtSearch;
+    public TableView<CustomerTm> tbl;
     public TableColumn colId;
     public TableColumn colEmail;
     public TableColumn colName;
     public TableColumn colContact;
     public TableColumn colSalary;
     public TableColumn colOperate;
-    public JFXTextField txtSearch;
-    private String searchText = "";
 
-    public void btnBackToHomeOnAction(ActionEvent actionEvent) throws IOException {
-        setUi("DashboardForm");
-    }
+    private String searchText="";
 
-    public void btnManageLoyaltyCardsOnAction(ActionEvent actionEvent) {
-    }
-
-    public void btnNewCustomerOnAction(ActionEvent actionEvent) {
-        txtEmail.setEditable(true);
-        btnSaveUpdate.setText("Save Customer");
-        clearFields();
-    }
+    CustomerBo bo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -60,14 +53,13 @@ public class CustomerFormController {
 
         loadAllCustomers(searchText);
 
-        tblCustomer.getSelectionModel()
+        tbl.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        setData(newValue);
-                    }
-                });
-
+            if (newValue!=null){
+                setData(newValue);
+            }
+        });
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             searchText=newValue;
             try {
@@ -76,6 +68,7 @@ public class CustomerFormController {
                 throw new RuntimeException(e);
             }
         });
+
     }
 
     private void setData(CustomerTm newValue) {
@@ -92,7 +85,7 @@ public class CustomerFormController {
         ObservableList<CustomerTm> observableList = FXCollections.observableArrayList();
         int counter=1;
         for (CustomerDto dto:
-                searchText.length()>0?DatabaseAccessCode.searchCustomers(searchText):DatabaseAccessCode.findAllCustomers()){
+                searchText.length()>0?bo.searchCustomers(searchText):bo.findAllCustomers()){
             Button btn = new Button("Delete");
             CustomerTm tm = new CustomerTm(
                     counter,dto.getEmail(), dto.getName(), dto.getContact(), dto.getSalary(),
@@ -103,10 +96,12 @@ public class CustomerFormController {
 
             btn.setOnAction((e)->{
                 try{
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure?", ButtonType.YES,ButtonType.NO);
+                    Alert alert = new
+                            Alert(Alert.AlertType.CONFIRMATION,
+                            "Are you sure?", ButtonType.YES,ButtonType.NO);
                     Optional<ButtonType> selectedButtonType = alert.showAndWait();
-                    if (selectedButtonType.equals(ButtonType.YES)){
-                        if (DatabaseAccessCode.deleteCustomer(dto.getEmail())){
+                    if (selectedButtonType.get().equals(ButtonType.YES)){
+                        if (bo.deleteCustomer(dto.getEmail())){
                             new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted!").show();
                             loadAllCustomers(searchText);
                         }else{
@@ -120,46 +115,56 @@ public class CustomerFormController {
             });
 
         }
-        tblCustomer.setItems(observableList);
+        tbl.setItems(observableList);
     }
+    public void btnSaveUpdateOnAction(ActionEvent actionEvent) {
+        try{
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
-        try {
-            if (btnSaveUpdate.getText().equals("Save Customer")) {
+            if (btnSaveUpdate.getText().equals("Save Customer")){
                 if (
-                        DatabaseAccessCode.createCustomer(
-                                txtEmail.getText(), txtName.getText(),
-                                txtContact.getText(), Double.parseDouble(txtSalary.getText())
-                        )
-                ) {
+                        bo.saveCustomer(
+                                new CustomerDto(txtEmail.getText(),txtName.getText(),
+                                txtContact.getText(),Double.parseDouble(txtSalary.getText())
+                        ))
+                ){
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer Saved!").show();
                     clearFields();
                     loadAllCustomers(searchText);
-                } else {
+                }else{
                     new Alert(Alert.AlertType.WARNING, "Try Again!").show();
                 }
-            } else {
+            }else{
                 if (
-                        DatabaseAccessCode.updateCustomer(
-                                txtEmail.getText(), txtName.getText(),
-                                txtContact.getText(), Double.parseDouble(txtSalary.getText())
-                        )
-                ) {
+                        bo.updateCustomer(
+                                new CustomerDto(
+                                txtEmail.getText(),txtName.getText(),
+                                txtContact.getText(),Double.parseDouble(txtSalary.getText())
+                        ))
+                ){
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer Updated!").show();
                     clearFields();
                     loadAllCustomers(searchText);
                     //---------
                     txtEmail.setEditable(true);
                     btnSaveUpdate.setText("Save Customer");
-                } else {
+                }else{
                     new Alert(Alert.AlertType.WARNING, "Try Again!").show();
                 }
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
     }
+
+    private void clearFields() {
+        txtEmail.clear();
+        txtName.clear();
+        txtContact.clear();
+        txtSalary.clear();
+    }
+
 
     private void setUi(String url) throws IOException {
         Stage stage = (Stage) context.getScene().getWindow();
@@ -169,10 +174,13 @@ public class CustomerFormController {
         );
     }
 
-    private void clearFields() {
-        txtEmail.clear();
-        txtName.clear();
-        txtContact.clear();
-        txtSalary.clear();
+    public void btnBackToHomeOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("DashboardForm");
+    }
+
+    public void btnNewCustomerOnAction(ActionEvent actionEvent) {
+        txtEmail.setEditable(true);
+        btnSaveUpdate.setText("Save Customer");
+        clearFields();
     }
 }
