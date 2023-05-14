@@ -2,9 +2,6 @@ package com.devstack.pos.controller;
 
 import com.devstack.pos.bo.BoFactory;
 import com.devstack.pos.bo.custom.ProductBo;
-import com.devstack.pos.bo.custom.impl.ProductBoImpl;
-import com.devstack.pos.dto.CustomerDto;
-import com.devstack.pos.dto.ProductDto;
 import com.devstack.pos.enums.BoType;
 import com.devstack.pos.view.tm.ProductTm;
 import com.jfoenix.controls.JFXButton;

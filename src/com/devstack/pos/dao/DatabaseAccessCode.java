@@ -1,7 +1,6 @@
 package com.devstack.pos.dao;
 
 import com.devstack.pos.db.DbConnection;
-import com.devstack.pos.dto.CustomerDto;
 import com.devstack.pos.dto.UserDto;
 import com.devstack.pos.util.PasswordManager;
 

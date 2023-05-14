@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="429.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.pos.controller.NewBatchFormController">
+<AnchorPane prefHeight="460.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devstack.pos.controller.NewBatchFormController">
    <children>
       <Label layoutX="24.0" layoutY="27.0" text="Product Management" textFill="#430404">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
       <Separator layoutX="24.0" layoutY="55.0" prefHeight="4.0" prefWidth="459.0" />
-      <AnchorPane layoutX="24.0" layoutY="69.0" prefHeight="194.0" prefWidth="214.0" style="-fx-background-color: #bdc3c7;">
+      <AnchorPane layoutX="31.0" layoutY="62.0" prefHeight="194.0" prefWidth="214.0" style="-fx-background-color: #bdc3c7;">
          <children>
             <ImageView fx:id="barcodeImage" fitHeight="176.0" fitWidth="202.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" />
          </children>
@@ -50,12 +50,12 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </TextField>
-      <TextArea fx:id="txtSelectedProdDescription" editable="false" layoutX="24.0" layoutY="316.0" prefHeight="104.0" prefWidth="459.0" promptText="Description">
+      <TextArea fx:id="txtSelectedProdDescription" editable="false" layoutX="24.0" layoutY="316.0" prefHeight="104.0" prefWidth="485.0" promptText="Description">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </TextArea>
-      <RadioButton fx:id="rBtnYes" layoutX="255.0" layoutY="244.0" mnemonicParsing="false" text="YES">
+      <RadioButton fx:id="rBtnYes" layoutX="261.0" layoutY="244.0" mnemonicParsing="false" text="YES">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -67,11 +67,11 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <RadioButton layoutX="311.0" layoutY="244.0" mnemonicParsing="false" selected="true" text="NO" toggleGroup="$deiscount">
+      <RadioButton layoutX="317.0" layoutY="244.0" mnemonicParsing="false" selected="true" text="NO" toggleGroup="$deiscount">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></RadioButton>
-      <JFXButton buttonType="RAISED" layoutX="405.0" layoutY="277.0" onAction="#saveBatch" style="-fx-background-color: #27ae60;" text="Save Batch" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="405.0" layoutY="277.0" onAction="#saveBatch" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #27ae60;" text="Save Batch" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

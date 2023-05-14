@@ -1,7 +1,6 @@
 package com.devstack.pos.bo.custom;
 
 import com.devstack.pos.bo.SuperBo;
-import com.devstack.pos.dto.ProductDto;
 
 import java.sql.SQLException;
 import java.util.List;

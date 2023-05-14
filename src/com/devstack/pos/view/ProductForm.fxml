@@ -16,11 +16,11 @@
    <children>
       <Label layoutX="14.0" layoutY="17.0" text="Product Management" textFill="#430404">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
       <Separator layoutX="14.0" layoutY="45.0" prefHeight="2.0" prefWidth="968.0" />
-      <JFXButton buttonType="RAISED" layoutX="888.0" layoutY="14.0" onAction="#btnBackToHomeOnAction" style="-fx-background-color: #7f8c8d;" text="Back to home" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="863.0" layoutY="11.0" onAction="#btnBackToHomeOnAction" style="-fx-background-color: #7f8c8d;" text="Back to home" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
