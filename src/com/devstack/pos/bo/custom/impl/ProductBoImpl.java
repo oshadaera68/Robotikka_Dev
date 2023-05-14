@@ -3,6 +3,7 @@ package com.devstack.pos.bo.custom.impl;
 import com.devstack.pos.bo.custom.ProductBo;
 import com.devstack.pos.dao.DaoFactory;
 import com.devstack.pos.dao.custom.ProductDao;
+import com.devstack.pos.dto.ProductDto;
 import com.devstack.pos.entity.Product;
 import com.devstack.pos.enums.DaoType;
 

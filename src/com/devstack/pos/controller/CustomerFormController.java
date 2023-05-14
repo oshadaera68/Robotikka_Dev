@@ -2,6 +2,8 @@ package com.devstack.pos.controller;
 
 import com.devstack.pos.bo.BoFactory;
 import com.devstack.pos.bo.custom.CustomerBo;
+import com.devstack.pos.bo.custom.impl.CustomerBoImpl;
+import com.devstack.pos.dto.CustomerDto;
 import com.devstack.pos.enums.BoType;
 import com.devstack.pos.view.tm.CustomerTm;
 import com.jfoenix.controls.JFXButton;
@@ -166,10 +168,10 @@ public class CustomerFormController {
 
     private void setUi(String url) throws IOException {
         Stage stage = (Stage) context.getScene().getWindow();
-        stage.centerOnScreen();
         stage.setScene(
                 new Scene(FXMLLoader.load(getClass().getResource("../view/" + url + ".fxml")))
         );
+        stage.centerOnScreen();
     }
 
     public void btnBackToHomeOnAction(ActionEvent actionEvent) throws IOException {

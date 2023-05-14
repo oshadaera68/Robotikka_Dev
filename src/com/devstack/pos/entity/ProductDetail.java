@@ -1,6 +1,6 @@
 package com.devstack.pos.entity;
 
-public class ProductDetail implements SuperEntity{
+public class ProductDetail implements SuperEntity {
     private String code;
     private String barcode;
     private int qtyOnHand;
@@ -21,6 +21,14 @@ public class ProductDetail implements SuperEntity{
         this.showPrice = showPrice;
         this.buyingPrice = buyingPrice;
         this.productCode = productCode;
+        this.discountAvailability = discountAvailability;
+    }
+
+    public boolean isDiscountAvailability() {
+        return discountAvailability;
+    }
+
+    public void setDiscountAvailability(boolean discountAvailability) {
         this.discountAvailability = discountAvailability;
     }
 
@@ -80,11 +88,16 @@ public class ProductDetail implements SuperEntity{
         this.productCode = productCode;
     }
 
-    public boolean isDiscountAvailability() {
-        return discountAvailability;
-    }
-
-    public void setDiscountAvailability(boolean discountAvailability) {
-        this.discountAvailability = discountAvailability;
+    @Override
+    public String toString() {
+        return "Batch{" +
+                "code=" + code +
+                ", barcode='" + barcode + '\'' +
+                ", qtyOnHand=" + qtyOnHand +
+                ", sellingPrice=" + sellingPrice +
+                ", showPrice=" + showPrice +
+                ", buyingPrice=" + buyingPrice +
+                ", productCode=" + productCode +
+                '}';
     }
 }

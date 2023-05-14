@@ -28,7 +28,7 @@ public class BoFactory {
                 return (T) new CustomerBoImpl();
             case PRODUCT:
                 return (T) new ProductBoImpl();
-            case PRODUCT_DETAIL:
+                case PRODUCT_DETAIL:
                 return (T) new ProductDetailBoImpl();
             default:
                 return null;

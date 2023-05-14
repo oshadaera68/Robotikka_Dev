@@ -24,7 +24,7 @@ public class DaoFactory {
                 return (T) new CustomerDaoImpl();
             case PRODUCT:
                 return (T) new ProductDaoImpl();
-            case PRODUCTDETAIL:
+            case PRODUCT_DETAIL:
                 return (T) new ProductDetailDaoImpl();
             default:
                 return null;
