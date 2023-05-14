@@ -1,8 +1,9 @@
-package com.devstack.pos.entity;
+package com.devstack.pos.dto;
 
 import java.util.Date;
+import java.util.List;
 
-public class OrderDetail implements SuperEntity {
+public class OrderDetailDto {
     private int code;
     private Date issuedDate;
     private double totalCost;
@@ -10,16 +11,19 @@ public class OrderDetail implements SuperEntity {
     private double discount;
     private String operatorEmail;
 
-    public OrderDetail() {
+    private List<ItemDetailDto> itemDetailDto;
+
+    public OrderDetailDto() {
     }
 
-    public OrderDetail(int code, Date issuedDate, double totalCost, String customerEmail, double discount, String operatorEmail) {
+    public OrderDetailDto(int code, Date issuedDate, double totalCost, String customerEmail, double discount, String operatorEmail, List<ItemDetailDto> itemDetailDto) {
         this.code = code;
         this.issuedDate = issuedDate;
         this.totalCost = totalCost;
         this.customerEmail = customerEmail;
         this.discount = discount;
         this.operatorEmail = operatorEmail;
+        this.itemDetailDto = itemDetailDto;
     }
 
     public int getCode() {
@@ -70,15 +74,24 @@ public class OrderDetail implements SuperEntity {
         this.operatorEmail = operatorEmail;
     }
 
+    public List<ItemDetailDto> getItemDetailDto() {
+        return itemDetailDto;
+    }
+
+    public void setItemDetailDto(List<ItemDetailDto> itemDetailDto) {
+        this.itemDetailDto = itemDetailDto;
+    }
+
     @Override
     public String toString() {
-        return "OrderDetail{" +
+        return "OrderDetailDto{" +
                 "code=" + code +
                 ", issuedDate=" + issuedDate +
                 ", totalCost=" + totalCost +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", discount=" + discount +
                 ", operatorEmail='" + operatorEmail + '\'' +
+                ", itemDetailDto=" + itemDetailDto +
                 '}';
     }
 }
