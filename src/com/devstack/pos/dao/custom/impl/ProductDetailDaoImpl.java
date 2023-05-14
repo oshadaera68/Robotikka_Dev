@@ -68,13 +68,13 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     public ProductDetail findProductDetail(String code) throws SQLException, ClassNotFoundException {
         ResultSet set = CrudUtil.execute("SELECT * FROM product_detail WHERE code=?", code);
         if (set.next()) {
-           return new ProductDetail(
-                   set.getString(1), set.getString(2),
-                   set.getInt(3), set.getDouble(4),
-                   set.getDouble(6), set.getDouble(8),
-                   set.getInt(7),
-                   set.getBoolean(5)
-           );
+            return new ProductDetail(
+                    set.getString(1), set.getString(2),
+                    set.getInt(3), set.getDouble(4),
+                    set.getDouble(6), set.getDouble(8),
+                    set.getInt(7),
+                    set.getBoolean(5)
+            );
         }
         return null;
     }
@@ -101,6 +101,6 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     @Override
     public boolean manageQty(String barcode, int qty) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute(
-                "UPDATE product_detail qty_on_hand=(qty_on_hand-?) WHERE code=?", qty,barcode);
+                "UPDATE product_detail SET qty_on_hand=(qty_on_hand-?) WHERE code=?", qty,barcode);
     }
 }
