@@ -285,7 +285,6 @@ public class PlaceOrderFormController {
     }
 
     public void btnCompleteOrder(ActionEvent actionEvent) {
-
         ArrayList<ItemDetailDto> dtoList = new ArrayList<>();
         double discount = 0;
         for (CartTm tm : tms
